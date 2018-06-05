@@ -6,5 +6,5 @@ export interface ITodosService {
     findOne(options: object): Promise<ITodo | null>;
     create(todos: ITodo): Promise<ITodo>;
     update(ID: number, newValue: ITodo): Promise<ITodo | null>;
-    delete(ID: number): Promise<number>;
+    delete(ID: number): Promise<string>;
 }

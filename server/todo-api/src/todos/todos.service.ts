@@ -35,13 +35,14 @@ export class TodosService implements ITodosService{
         await this.todoModel.findByIdAndUpdate(ID, newValue).exec();
         return await this.todoModel.findById(ID).exec();
     }
-    async delete(ID: number): Promise<number> {
+    async delete(ID: number): Promise<string> {
         try {
             await this.todoModel.findByIdAndRemove(ID).exec();
-            return 1;
+            return 'The todo has been deleted';
         }
         catch (err){
-            return 0;
+            debug(err);
+            return 'The todo could not be deleted';
         }
     }
 }

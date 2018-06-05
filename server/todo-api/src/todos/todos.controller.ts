@@ -36,17 +36,17 @@ export class TodosController {
         return res.status(HttpStatus.OK).json(todo);
     }
 
-    @Patch('users/:ID')
-    public async updateUser(@Param() param, @Response() res, @Body() body) {
+    @Patch('/:id')
+    public async updateTodo(@Param() param, @Response() res, @Body() body) {
 
-        const todo = await this.todosService.update(param.ID, body);
+        const todo = await this.todosService.update(param.id, body);
         return res.status(HttpStatus.OK).json(todo);
     }
 
-    @Delete('users/:ID')
-    public async deleteUser(@Param() param, @Response() res) {
+    @Delete('/:id')
+    public async deleteTodo(@Param() param, @Response() res) {
 
-        const todo = await this.todosService.delete(param.ID);
+        const todo = await this.todosService.delete(param.id);
         return res.status(HttpStatus.OK).json(todo);
     }
 }
