@@ -1,6 +1,6 @@
 import { ApiModelProperty } from '@nestjs/swagger';
 
-export class CreateTodoDto {
+export class CreateUserDto {
     @ApiModelProperty()
     readonly _id: number;
 
