@@ -25,7 +25,7 @@ export class AuthController {
     }
 
     @Post('login')
-    @UseGuards(AuthGuard('login'))
+    @UseGuards(AuthGuard('local'))
     public async login(@Response() res, @Body() login: LoginUserDto){
         return await this.usersService.findOne({ username: login.email}).then(user => {
             if (!user) {
@@ -34,7 +34,8 @@ export class AuthController {
                 });
             } else {
                 console.log('start getting the token');
-                const token = this.authService.createToken(login);
+                const token = this.authService.createToken(user);
+                console.log(token);
                 return res.status(HttpStatus.OK).json(token);
             }
         });

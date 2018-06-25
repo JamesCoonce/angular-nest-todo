@@ -30,7 +30,12 @@ export class AuthService {
         console.log('get the expiration');
         const expiresIn = 3600;
         console.log('sign the token');
-        const accessToken = jwt.sign({ id: user.id, email: user.email }, 'ILovePokemon', { expiresIn });
+        console.log(user);
+
+        const accessToken = jwt.sign({ id: user.id,
+            email: user.username,
+            firstname: user.firstName,
+            lastname: user.lastName }, 'ILovePokemon', { expiresIn });
         console.log('return the token');
         console.log(accessToken);
         return {

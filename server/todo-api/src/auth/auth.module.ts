@@ -22,3 +22,13 @@ import { authenticate } from 'passport';
   exports: [AuthService, JwtStrategy, LocalStrategy],
 })
 export class AuthModule {}
+/*export class AuthModule implements NestModule {
+  public configure(consumer: MiddlewareConsumer) {
+    consumer
+      .apply([
+        bodyValidatorMiddleware,
+        authenticate('local', { session: false }),
+      ])
+      .forRoutes('auth/login');
+  }
+}*/
