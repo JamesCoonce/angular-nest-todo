@@ -1,5 +1,6 @@
 import { Controller, UseGuards, HttpStatus, Response, Request, Get, Post, Body, Put, Param, Delete } from '@nestjs/common';
 import { CreateUserDto } from '../users/dto/createUser.dto';
+import { LoginUserDto } from '../users/dto/loginUser.dto';
 import { AuthService } from './auth.service';
 import { AuthGuard } from '@nestjs/passport';
 import { ApiUseTags, ApiResponse } from '@nestjs/swagger';
@@ -25,14 +26,16 @@ export class AuthController {
 
     @Post('login')
     @UseGuards(AuthGuard('login'))
-    public async login(@Response() res, @Body() login){
-        return await this.usersService.findOne(login.email).then(user => {
+    public async login(@Response() res, @Body() login: LoginUserDto){
+        return await this.usersService.findOne({ username: login.email}).then(user => {
             if (!user) {
                 res.status(HttpStatus.INTERNAL_SERVER_ERROR).json({
                     message: 'User Not Found',
                 });
             } else {
-                return this.authService.createToken(login);
+                console.log('start getting the token');
+                const token = this.authService.createToken(login);
+                return res.status(HttpStatus.OK).json(token);
             }
         });
     }
