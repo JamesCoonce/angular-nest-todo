@@ -1,4 +1,4 @@
-import { Model } from 'mongoose';
+import { Model, PassportLocalModel } from 'mongoose';
 import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { debug } from 'console';
@@ -8,7 +8,7 @@ import { CreateUserDto } from './dto/createUser.dto';
 
 @Injectable()
 export class UsersService implements IUsersService {
-    constructor(@InjectModel('User') private readonly userModel: Model<IUser>) {}
+    constructor(@InjectModel('User') private readonly userModel: PassportLocalModel<IUser>) {}
     async findAll(): Promise<IUser[]> {
         return await this.userModel.find().exec();
     }
