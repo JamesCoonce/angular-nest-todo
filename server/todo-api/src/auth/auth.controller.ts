@@ -5,6 +5,8 @@ import { AuthGuard } from '@nestjs/passport';
 import { ApiUseTags, ApiResponse } from '@nestjs/swagger';
 import { RegistrationStatus } from './interfaces/registrationStatus.interface';
 import { UsersService } from '../users/users.service';
+import { Inject } from '@nestjs/common';
+import { debug } from 'util';
 
 @ApiUseTags('auth')
 @Controller('auth')
@@ -12,16 +14,16 @@ export class AuthController {
     constructor(private readonly authService: AuthService,
                 private readonly usersService: UsersService) {}
 
-    @Post()
+    @Post('register')
     public async register(@Response() res, @Body() createUserDto: CreateUserDto){
         const result = await this.authService.register(createUserDto);
         if (!result.success){
-            return res.status(HttpStatus.BAD_REQUEST).json(result.message);
+            return res.status(HttpStatus.BAD_REQUEST).json(result);
         }
-        return res.status(HttpStatus.OK).json(result.message);
+        return res.status(HttpStatus.OK).json(result);
     }
 
-    @Post()
+    @Post('login')
     @UseGuards(AuthGuard('login'))
     public async login(@Response() res, @Body() login){
         return await this.usersService.findOne(login.email).then(user => {

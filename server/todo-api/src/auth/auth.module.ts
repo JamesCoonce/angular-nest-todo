@@ -21,20 +21,4 @@ import { authenticate } from 'passport';
   providers: [AuthService, JwtStrategy, LocalStrategy],
   exports: [AuthService, JwtStrategy, LocalStrategy],
 })
-export class AuthModule implements NestModule {
-  public configure(consumer: MiddlewareConsumer) {
-    consumer
-      .apply([
-        bodyValidatorMiddleware,
-        authenticate('local-signup', { session: false }),
-      ])
-      .forRoutes('api/auth/local/signup');
-
-    consumer
-      .apply([
-        bodyValidatorMiddleware,
-        authenticate('local-signin', { session: false }),
-      ])
-      .forRoutes('api/auth/local/signin');
-  }
-}
+export class AuthModule {}
