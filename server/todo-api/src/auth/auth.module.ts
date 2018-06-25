@@ -1,12 +1,40 @@
-import { Module } from '@nestjs/common';
-import { MongooseModule } from '@nestjs/mongoose';
+import {
+  Module,
+  NestModule,
+  MiddlewareConsumer,
+  RequestMethod,
+} from '@nestjs/common';
+
 import { AuthService } from './auth.service';
 import { AuthController } from './auth.controller';
-import { UserSchema} from '../users/schemas/user.schema';
+import { bodyValidatorMiddleware } from './middlewares/body-validator.middleware';
+import { UsersModule } from '../users/users.module';
+// Strategies
+import { JwtStrategy } from './passport/jwt.strategy';
+import { LocalStrategy } from './passport/local.strategy';
+
+import { authenticate } from 'passport';
 
 @Module({
-  imports: [MongooseModule.forFeature([{ name: 'User', schema: UserSchema }])],
-  providers: [AuthService],
+  imports: [UsersModule],
   controllers: [AuthController],
+  providers: [AuthService, JwtStrategy, LocalStrategy],
+  exports: [AuthService],
 })
-export class AuthModule {}
+export class AuthModule implements NestModule {
+  public configure(consumer: MiddlewareConsumer) {
+    consumer
+      .apply([
+        bodyValidatorMiddleware,
+        authenticate('local-signup', { session: false })
+      ])
+      .forRoutes('api/auth/local/signup');
+
+    consumer
+      .apply([
+        bodyValidatorMiddleware,
+        authenticate('local-signin', { session: false })
+      ])
+      .forRoutes('api/auth/local/signin');
+  }
+}

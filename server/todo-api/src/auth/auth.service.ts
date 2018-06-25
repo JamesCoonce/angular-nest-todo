@@ -1,5 +1,5 @@
 import * as jwt from 'jsonwebtoken';
-import { Injectable } from '@nestjs/common';
+import { Injectable, UnauthorizedException } from '@nestjs/common';
 import { UsersService } from '../users/users.service';
 import { JwtPayload } from './interfaces/jwt-payload.interface';
 import { Model } from 'mongoose';
@@ -32,13 +32,9 @@ export class AuthService {
         return result;
     }
 
-    async login(){
-
-    }
-
     async createToken(user) {
         const expiresIn = 3600;
-        const accessToken = jwt.sign({ id: user.id, email: user.username }, 'secretKey', { expiresIn });
+        const accessToken = jwt.sign({ id: user.id, email: user.email }, 'ILovePokemon', { expiresIn });
         return {
             expiresIn,
             accessToken,

@@ -1,5 +1,5 @@
 import * as mongoose from 'mongoose';
-import passportLocalMongoose from 'passport-local-mongoose';
+import * as passportLocalMongoose from 'passport-local-mongoose';
 
 export const UserSchema = new mongoose.Schema({
     firstName: String,
