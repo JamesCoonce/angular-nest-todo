@@ -21,8 +21,8 @@
     "@angular/platform-browser-dynamic": "^6.0.3",
     "@angular/router": "^6.0.3",
     "core-js": "^2.5.4",
-    "element-angular": "^0.7.6",
     "hammerjs": "^2.0.8",
+    "ng-zorro-antd": "^1.1.1",
     "rxjs": "^6.0.0",
     "zone.js": "^0.8.26"
   },
