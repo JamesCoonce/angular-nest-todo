@@ -4,7 +4,7 @@ import { AppModule } from './app.module';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
-
+  app.enableCors();
   const options = new DocumentBuilder()
     .setTitle('Todos example')
     .setDescription('The Todos API description')

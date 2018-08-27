@@ -1,3 +1,17 @@
-<p>
-  todos-list works!
-</p>
+<nz-list class="demo-loadmore-list" [nzDataSource]="data" [nzItemLayout]="'horizontal'" [nzLoading]="loading" [nzRenderItem]="item">
+  <ng-template #item let-item>
+    <nz-list-item [nzContent]="item.complete" [nzActions]="[editAction,moreAction]">
+      <ng-template #editAction>
+        <a (click)="edit(item)">edit</a>
+      </ng-template>
+      <ng-template #moreAction>
+        <a (click)="edit(item)">more</a>
+      </ng-template>
+      <nz-list-item-meta [nzTitle]="nzTitle" nzAvatar="https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png" nzDescription="{{item.text}}">
+        <ng-template #nzTitle>
+          <a routerLink="/todos/{{item._id}}">{{item.text}}</a>
+        </ng-template>
+      </nz-list-item-meta>
+    </nz-list-item>
+  </ng-template>
+</nz-list>

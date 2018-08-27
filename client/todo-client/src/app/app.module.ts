@@ -24,7 +24,7 @@ registerLocaleData(en);
 
 const appRoutes: Routes = [
   { path: '', component: HomeComponent },
-  { path: 'todo/:id', component: TodoComponent },
+  { path: 'todos/:id', component: TodoComponent },
   {
     path: 'todos',
     component: TodosListComponent,
