@@ -9,4 +9,7 @@ export class CreateTodoDto {
 
     @ApiModelProperty()
     readonly complete: boolean;
+
+    @ApiModelProperty()
+    readonly dueDate: Date;
 }

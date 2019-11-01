@@ -12,9 +12,7 @@ export class JwtStrategy extends PassportStrategy(Strategy) {
         super({
             jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),
             secretOrKey: 'ILovePokemon',
-        },
-        // tslint:disable-next-line:ban-types
-        async (req: Request, payload: any, next: Function) => await this.verify(req, payload, next));
+        });
     }
 
     // tslint:disable-next-line:ban-types
